@@ -1,0 +1,8 @@
+# Mini GRC Resources File
+
+# Specify resources files separated with space
+# or per line, ending with \
+# Example RESOURCES=test1.eps test2.eps
+
+RESOURCES=data/lena.jpg
+

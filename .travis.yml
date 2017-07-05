@@ -1,0 +1,6 @@
+language: cpp
+os: osx
+install: true
+script: 
+  - make
+  - make install
