@@ -37,7 +37,7 @@ public:
 	 * @brief Compile resources
 	 * @exception std::invalid_argument
 	 */
-	void compile(const std::string &hfile, const std::string &cfile) throw(std::invalid_argument);
+	void compile() throw(std::invalid_argument);
 public:
 	/**
 	 * @brief Generates valid resource name (to use in code) from it's file name
@@ -54,12 +54,12 @@ private:
 	 * @brief Generates c header file
 	 * @exception std::invalid_argument
 	 */
-	void generate_h(const std::string &file) throw(std::invalid_argument);
+	void generate_header(const std::string &file) throw(std::invalid_argument);
 	/**
 	 * @brief Generates c source file
 	 * @exception std::invalid_argument
 	 */
-	void generate_c(const std::string &file) throw(std::invalid_argument);
+	void generate_source(const std::string &file) throw(std::invalid_argument);
 	/**
 	 * @brief Creates hex representation of binary file
 	 * @param[in] each Function that is called every time when
@@ -78,6 +78,8 @@ private:
 	 * @brief Collection of resources ( <name, generated with `rc_name`, file name> )
 	 */
 	std::unordered_map<std::string, std::string> resources_;
+	std::string header_name_;
+	std::string source_name_;
 };
 
 #endif  // __MINIRC_HPP__

@@ -1,6 +1,6 @@
-#include "resources.h"
+#include "resources.hpp"
 
-#include <stdio.h>
+#include <iostream>
 
 int main(int argc, char *argv[])
 {
@@ -8,10 +8,10 @@ int main(int argc, char *argv[])
     int res = rc_restore(fname, data_lena_jpg, data_lena_jpg_len);
     
     if(res) {
-        printf("Resource was successfully written to %s!\n", fname);
+        std::cout << "Resource was successfully written to " << fname << "!\n";
         return 0;
     } else {
-        printf("Failed to write resource to %s!\n", fname);
+        std::cout << "Failed to write resource to " << fname << "!\n";
         return 1;
     }
 }

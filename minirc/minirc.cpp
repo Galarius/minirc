@@ -26,10 +26,16 @@ void MiniRC::create_rc_file(const std::string &file) throw(std::invalid_argument
 	    << std::endl
 	    << "# Specify resources files separated with space" << std::endl
 	    << "# or per line, ending with \\" << std::endl
-	    << "# Example RESOURCES=test1.eps test2.eps" << std::endl
+	    << "# Example RESOURCES = image.jpg sound.wav" << std::endl
 	    << std::endl
-	    << "RESOURCES=" << std::endl
-	    << std::endl;
+	    << "RESOURCES =" << std::endl
+	    << std::endl
+		<< "# Generate resources header file with specified name" << std::endl
+		<< "HEADER_NAME = resource.h" << std::endl
+		<< std::endl
+		<< "# Generate resources source file with specified name" << std::endl
+		<< "SOURCE_NAME = resource.c" << std::endl
+		<< std::endl;
 }
 
 void MiniRC::load_rc_file(const std::string &file) throw(std::invalid_argument)
@@ -88,11 +94,17 @@ void MiniRC::load_rc_file(const std::string &file) throw(std::invalid_argument)
 	}
 }
 
-void MiniRC::compile(const std::string &hfile, const std::string &cfile) throw(std::invalid_argument)
+void MiniRC::compile() throw(std::invalid_argument)
 {
 	try {
-		generate_h(hfile);
-		generate_c(cfile);
+		if(header_name_.empty()) {
+			throw std::invalid_argument(header_name_);
+		}
+		if(source_name_.empty()) {
+			throw std::invalid_argument(source_name_);
+		}
+		generate_header(header_name_);
+		generate_source(source_name_);
 	} catch(const std::invalid_argument &ia) {
 		throw ia;
 	}
@@ -135,10 +147,14 @@ void MiniRC::parse_kv(const std::string &key, const std::string &value, bool mul
 				}
 			}
 		}
+	} else if(key == "HEADER_NAME") {
+		header_name_ = value;
+	} else if(key == "SOURCE_NAME") {
+		source_name_ = value;
 	}
 }
 
-void MiniRC::generate_h(const std::string &file) throw(std::invalid_argument)
+void MiniRC::generate_header(const std::string &file) throw(std::invalid_argument)
 {
 	std::ofstream out(file);
 
@@ -146,10 +162,12 @@ void MiniRC::generate_h(const std::string &file) throw(std::invalid_argument)
 		throw std::invalid_argument(file);
 	}
 
+	std::string pragma_once = rc_name("__"+ header_name_ +"__");
+
 	out << "/** Generated with MiniRC */" << std::endl
 	    << std::endl
-	    << "#ifndef __RESOURCES__H__" << std::endl
-	    << "#define __RESOURCES__H__" << std::endl
+	    << "#ifndef " << pragma_once << std::endl
+	    << "#define " << pragma_once << std::endl
 	    << std::endl
 	    << "#include <stddef.h>" << std::endl
 	    << std::endl;
@@ -173,10 +191,10 @@ void MiniRC::generate_h(const std::string &file) throw(std::invalid_argument)
 		}
 	}
 
-	out << std::endl << "#endif /* __RESOURCES__H__ */" << std::endl;
+	out << std::endl << "#endif /* "<< pragma_once <<" */" << std::endl;
 }
 
-void MiniRC::generate_c(const std::string &file) throw(std::invalid_argument)
+void MiniRC::generate_source(const std::string &file) throw(std::invalid_argument)
 {
 	std::ofstream out(file);
 
@@ -186,7 +204,7 @@ void MiniRC::generate_c(const std::string &file) throw(std::invalid_argument)
 
 	out << "/** Generated with MiniRC */" << std::endl
 	    << std::endl
-	    << "#include \"resources.h\"" << std::endl
+	    << "#include \"" << header_name_ << "\"" << std::endl
 	    << std::endl
 	    << "#include <stdio.h>"  << std::endl
 	    << "#include <stdlib.h>" << std::endl

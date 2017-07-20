@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 
 	try {
 		rc.load_rc_file(rc_file);
-		rc.compile("resources.h", "resources.c");
+		rc.compile();
 	} catch(const std::invalid_argument &ia) {
 		std::cerr << "Invalid argument " << ia.what() << std::endl;
 		return 1;

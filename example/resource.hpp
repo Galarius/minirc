@@ -1,7 +1,7 @@
 /** Generated with MiniRC */
 
-#ifndef __RESOURCES__H__
-#define __RESOURCES__H__
+#ifndef __resource_hpp__
+#define __resource_hpp__
 
 #include <stddef.h>
 

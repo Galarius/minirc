@@ -1,6 +1,6 @@
 /** Generated with MiniRC */
 
-#include "resources.h"
+#include "resource.hpp"
 
 #include <stdio.h>
 #include <stdlib.h>
