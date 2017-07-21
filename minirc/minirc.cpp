@@ -203,14 +203,18 @@ void MiniRC::generate_source(const std::string &file) throw(std::invalid_argumen
 	}
 
 	out << "/** Generated with MiniRC */" << std::endl
-	    << std::endl
-	    << "#include \"" << header_name_ << "\"" << std::endl
-	    << std::endl
-	    << "#include <stdio.h>"  << std::endl
-	    << "#include <stdlib.h>" << std::endl
-	    << "#include <string.h>" << std::endl
-	    << std::endl
-	    << "#define BUFFER_SIZE 255" << std::endl
+		<< std::endl
+		<< "#include \"" << header_name_ << "\"" << std::endl
+		<< std::endl
+		<< "#include <stdio.h>" << std::endl
+		<< "#include <stdlib.h>" << std::endl
+		<< "#include <string.h>" << std::endl
+		<< std::endl
+		<< "#define BUFFER_SIZE 255" << std::endl
+		<< std::endl
+		<< R"!(#if defined (_MSC_VER) && _MSC_VER < 1900
+	#define snprintf _snprintf
+#endif)!" << std::endl
 	    << std::endl
 	    << R"!(int rc_restore(const char* fname, const int* content, size_t length)
 {
@@ -231,9 +235,9 @@ void MiniRC::generate_source(const std::string &file) throw(std::invalid_argumen
     return restored;
 })!" << std::endl << std::endl;
 	out << "/*********************************************"
-	    << "*****************************************************/"
+	    << "*****************************************************/" << std::endl
 	    << "/*                                          RESOURCES "
-	    << "                                            */"
+		<< "                                            */" << std::endl
 	    << "/*****************************************************"
 	    << "*********************************************/" << std::endl
 	    << std::endl;
