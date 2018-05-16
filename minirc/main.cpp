@@ -33,13 +33,13 @@ int main(int argc, char *argv[])
 	MiniRC rc;
 	std::string rc_file = argv[argc-1];
 
-	for(int i = 1; i < argc-1; ++i) {
+	for(int i = 1; i < argc; ++i) {
 		std::string arg = argv[i];
-
-		if((arg == "-h") || (arg == "--help")) {
+		std::cout << arg;
+		if(arg == "-h" || arg == "--help") {
 			show_usage(argv[0]);
 			return 0;
-		} else if((arg == "-n") || (arg == "--new")) {
+		} else if(arg == "-n" || arg == "--new") {
 			try {
 				rc.create_rc_file(rc_file);
 			} catch(const std::invalid_argument &ia) {
