@@ -4,7 +4,7 @@ TARGET=example
 OUT  = $(BDIR)/$(TARGET)
 ODIR = objs
 MD = mkdir -p
-RCC=../../build/minirc.exe
+RCC=../../build/minirc
 
 _OBJS = example.o resource.o
 OBJS = $(patsubst %,$(ODIR)/%,$(_OBJS))
@@ -29,7 +29,7 @@ prepare: directories
 	$(RCC) data.rc
 
 test: prepare $(TARGET)
-	$(OUT).exe
+	$(OUT)
 
 .PHONY: clean
 clean:
