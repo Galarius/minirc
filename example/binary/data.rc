@@ -4,7 +4,7 @@
 # or per line, ending with \
 # Example RESOURCES = image.jpg sound.wav
 
-RESOURCES = data/lena.jpg
+RESOURCES = lena.jpg
 
 # Generate resources header file with specified name
 HEADER_NAME = resource.hpp

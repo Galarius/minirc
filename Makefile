@@ -15,14 +15,14 @@ OBJS = $(patsubst %,$(ODIR)/%,$(_OBJS))
 
 .PHONY: all clean install uninstall directories
 
-all : directories $(TARGET)
+all : directories $(TARGET) example_binary example_text
 
 directories: $(BDIR) $(ODIR)
 	
-$(BDIR) :
+$(BDIR):
 	$(MD) $(BDIR)
 
-$(ODIR) :
+$(ODIR):
 	$(MD) $(ODIR)
 
 $(TARGET): $(OBJS)
@@ -31,8 +31,18 @@ $(TARGET): $(OBJS)
 $(ODIR)/%.o: $(SDIR)/%.cpp
 	$(CC) -c $(INC) -o $@ $< $(CPPFLAGS)
 
+example_binary:
+	$(MAKE) -C example/binary clean
+	$(MAKE) -C example/binary
+
+example_text:
+	$(MAKE) -C example/text clean
+	$(MAKE) -C example/text
+	
 clean:
 	rm -f $(ODIR)/*.o $(BDIR)/*
+	$(MAKE) -C example/binary clean
+	$(MAKE) -C example/text clean
 install:
 	install $(TARGET) $(PREFIX)/bin
 uninstall:

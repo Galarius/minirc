@@ -1,4 +1,4 @@
-.vscode
-build
-objs
-[Dd]oc
+.vscode/
+build/
+objs/
+[Dd]oc/
