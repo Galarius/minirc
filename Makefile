@@ -1,8 +1,9 @@
+VERSION = 0.2
+TARGET = minirc
 PREFIX ?= /usr/local
 CC = g++
-CPPFLAGS = -std=c++11
+CPPFLAGS = -std=c++11 -DVERSION=$(VERSION)
 LFLAGS = 
-TARGET = minirc
 
 BDIR = build
 ODIR = objs

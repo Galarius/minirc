@@ -13,6 +13,7 @@
 static void show_usage(char *name)
 {
 	std::cerr << "Mini RC" << std::endl
+			  << "Version: " << VERSION << std::endl
 	          << "Creates resources.h and resources.c with hex representations of" << std::endl
 	          << "binary files specified in RESOURCES_FILE." << std::endl
 	          << "Usage: " << name << " <option(s)> RESOURCES_FILE" << std::endl

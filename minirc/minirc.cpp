@@ -22,7 +22,7 @@ void MiniRC::create_rc_file(const std::string &file) throw(std::invalid_argument
 		throw std::invalid_argument(file);
 	}
 
-	out << "# Mini GRC Resources File" << std::endl
+	out << "# Mini RC Resources File" << std::endl
 	    << std::endl
 	    << "# Specify resources files separated with space" << std::endl
 	    << "# or per line, ending with \\" << std::endl
