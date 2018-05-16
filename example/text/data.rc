@@ -1,0 +1,14 @@
+# Mini GRC Resources File
+
+# Specify resources files separated with space
+# or per line, ending with \
+# Example RESOURCES = image.jpg sound.wav
+
+RESOURCES = text.txt
+
+# Generate resources header file with specified name
+HEADER_NAME = resource.hpp
+
+# Generate resources source file with specified name
+SOURCE_NAME = resource.cpp
+
