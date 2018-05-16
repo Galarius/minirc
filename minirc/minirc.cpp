@@ -178,13 +178,15 @@ void MiniRC::generate_header(const std::string &file) throw(std::invalid_argumen
 * @@return 1 if everything went well, 0 if `fname` is invalid or 
 *            error occured during hex to bin conversion.
 */)!"   << std::endl
-	    << "int rc_restore(const char* fname, const int* content, size_t length);" << std::endl
+		<< "#define RC_TYPE unsigned char"
+		<< std::endl
+	    << "int rc_restore(const char* fname, const RC_TYPE* content, size_t length);" << std::endl
 	    << std::endl;
 
 	for(auto &kvmap : resources_) {
 		if(valid_resource(kvmap.second)) {
 			out << "/* " << kvmap.second << " */" << std::endl;
-			out << "extern const int " << kvmap.first << "[];" << std::endl;
+			out << "extern const RC_TYPE " << kvmap.first << "[];" << std::endl;
 			out << "extern const size_t " << kvmap.first << "_len;" << std::endl;
 		} else {
 			std::cerr << "Invalid resource file: " << kvmap.second << std::endl;
@@ -216,7 +218,7 @@ void MiniRC::generate_source(const std::string &file) throw(std::invalid_argumen
 	#define snprintf _snprintf
 #endif)!" << std::endl
 	    << std::endl
-	    << R"!(int rc_restore(const char* fname, const int* content, size_t length)
+	    << R"!(int rc_restore(const char* fname, const RC_TYPE* content, size_t length)
 {
     int restored = 0;           /* result */
     FILE* ptr_file = NULL;      
@@ -247,7 +249,7 @@ void MiniRC::generate_source(const std::string &file) throw(std::invalid_argumen
 		if(valid_resource(kvmap.second)) {
 			size = 0;
 			out << "/* " << kvmap.second << " */" << std::endl;
-			out << "const int " << kvmap.first << "[] = {" << std::endl;
+			out << "const RC_TYPE " << kvmap.first << "[] = {" << std::endl;
 			// convert binary file at `kvmap.second` to hex and
 			// save it to out (resource source file)
 			to_hex(kvmap.second, [&](const std::string& hex) {
