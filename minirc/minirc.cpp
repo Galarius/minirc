@@ -225,7 +225,7 @@ void MiniRC::generate_source(const std::string &file) throw(std::invalid_argumen
     char buffer[BUFFER_SIZE];   
     if ((ptr_file = fopen(fname, "wb")))
     {
-        for(int i = 0; i < length; ++i) 
+        for(int i = 0; i < length - 1; ++i) 
         {
             memset(buffer, '\0', BUFFER_SIZE);
             restored = snprintf(buffer, BUFFER_SIZE, "%.2x", content[i]) >= 0;
