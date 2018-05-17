@@ -9,9 +9,9 @@ RCC=../../build/minirc
 _OBJS = example.o resource.o
 OBJS = $(patsubst %,$(ODIR)/%,$(_OBJS))
 
-all : prepare test
+all : prepare $(TARGET) test
 
-.PHONY: directories prepare
+.PHONY: directories
 directories: $(BDIR) $(ODIR)
 	
 $(BDIR) :
@@ -19,18 +19,23 @@ $(BDIR) :
 $(ODIR) :
 	$(MD) $(ODIR)
 
-$(TARGET): $(OBJS)
+$(TARGET): directories $(OBJS)
 	$(CC) $(OBJS) -o $(OUT)
 
-$(ODIR)/%.o: %.cpp
+$(ODIR)/example.o: example.cpp
 	$(CC) -c -o $@ $<
 
-prepare: directories
+$(ODIR)/resource.o: resource.cpp resource.hpp
+	$(CC) -c -o $@ $<
+
+.PHONY: prepare
+prepare:
 	$(RCC) data.rc
 
-test: prepare $(TARGET)
+.PHONY: test
+test:
 	$(OUT)
 
 .PHONY: clean
 clean:
-	rm -f $(ODIR)/*.o $(BDIR)/*
+	rm -f $(ODIR)/*.o $(BDIR)/* resource.cpp resource.hpp restored.txt
