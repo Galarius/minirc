@@ -1,5 +1,10 @@
 language: cpp
-os: osx
+os:
+  - osx
+  - linux
+compiler:
+  - gcc
+  - clang
 install: true
 script: 
   - make
