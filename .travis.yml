@@ -5,7 +5,6 @@ os:
 compiler:
   - gcc
   - clang
-install: true
+install: false
 script: 
   - make
-  - make install

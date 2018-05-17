@@ -1,5 +1,7 @@
 # Mini RC
 
+[![Build Status](https://travis-ci.org/Galarius/minirc.svg?branch=master)](https://travis-ci.org/Galarius/minirc)
+
 [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ### Cross-Platform resource compiler for C/C++ projects
