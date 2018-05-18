@@ -170,7 +170,9 @@ void MiniRC::generate_header(const std::string &file) throw(std::invalid_argumen
 	    << "#define " << pragma_once << std::endl
 	    << std::endl
 	    << "#include <stddef.h>" << std::endl
-	    << std::endl;
+	    << std::endl
+		<< "#define RC_TYPE unsigned char" << std::endl
+		<< std::endl;
 	out << R"!(/**
 * @brief Restores binary file in file system to specified location
 * @param[in] fname Full file name for saving in file system
@@ -178,8 +180,6 @@ void MiniRC::generate_header(const std::string &file) throw(std::invalid_argumen
 * @@return 1 if everything went well, 0 if `fname` is invalid or 
 *            error occured during hex to bin conversion.
 */)!"   << std::endl
-		<< "#define RC_TYPE unsigned char"
-		<< std::endl
 	    << "int rc_restore(const char* fname, const RC_TYPE* content, size_t length);" << std::endl
 	    << std::endl;
 
